@@ -1,0 +1,17 @@
+name: Integration Tests
+on: [push, pull_request]
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build and run action
+        uses: ./
+        with:
+          enable_fib: true
+          max_threshold: 237
+          
+      
+        
+       
