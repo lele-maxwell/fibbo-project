@@ -4,6 +4,13 @@ jobs:
   test-action:
     runs-on: ubuntu-latest
     steps:
+      - name: include cache
+        uses: action/cache@v4
+        with:
+           path: |
+            ~.cargo/bin/
+            ~.cargo/.git/db/
+
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Build and run action
