@@ -9,7 +9,7 @@ jobs:
       - name: Build and run action
         uses: ./
         with:
-          enable_fib: true
+          enable_fib: false
           max_threshold: 237
           
       
