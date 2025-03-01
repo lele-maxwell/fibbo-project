@@ -4,7 +4,7 @@ use num_bigint::{BigInt, ToBigInt};
 //pub struct Fibbonacci;
 
 //impl Fibbonacci {
-    pub fn fibbo(num: i32) -> BigInt {
+    pub fn fibbo(num: i32) -> i32 {
       let mut previous_number: i32 = 1;//.to_bigint().unwrap();
       let mut current_number: i32 = 0;//.to_bigint().unwrap();
       
