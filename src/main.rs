@@ -50,10 +50,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 //let num = num.to_bigint();
                 let fib = fibbo(num);
                 println!("\n the fib of {} is : {} \n", num, fib);
-            } else if max_threshold.parse::<i32>().unwrap() < num {
-                println!("\n number() is greater than (max_threshold){} \n", num);
                 let pr_content= format!("{:?}", result);
                 post_comment(pr_content.as_str()).await?;
+            } else if max_threshold.parse::<i32>().unwrap() < num {
+                println!("\n number() is greater than (max_threshold){} \n", num);
             }
             
 
