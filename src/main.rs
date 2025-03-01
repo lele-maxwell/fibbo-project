@@ -1,5 +1,5 @@
-use std::env;
-
+use std::{env, result};
+use crate::post_comment::post_comment;
 use fib_calculator::fibbo;
 use num_bigint::ToBigInt;
 use octocrab::{ models::{ repos::DiffEntry, pulls::PullRequest, repos::Content }, Octocrab, Page };
@@ -39,6 +39,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("{:?}", pr);
         let path = &pr.items.first().unwrap().patch.clone().unwrap();
         let numbers = extract_numbers::extract_numbers(&path);
+        let mut result:Vec<i32>= Vec::new();
 
         for num in numbers {
             //println!("{}", num);
@@ -51,7 +52,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 println!("\n the fib of {} is : {} \n", num, fib);
             } else if max_threshold.parse::<i32>().unwrap() < num {
                 println!("\n number() is greater than (max_threshold){} \n", num);
+                let pr_content= format!("{:?}", result);
+                post_comment(pr_content.as_str()).await?;
             }
+            
 
             // std::io::stdin().read_line(&mut num1).unwrap();
             // let num1: f64 = num1.trim().parse().unwrap();
@@ -63,9 +67,36 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("\n Fibonacci program is disabled");
         println!("\n enable your program with a true argument");
     }
+    let pr_number: u64 = match env::var("PR_NUMBER") 
+    {
+        
+        Ok(pr_str) if pr_str.is_empty() => pr_str.parse::<u64>().expect("Invalid PR_NUMBER"),
+        _ => {
+            println!("PR_NUMBER() environment variable is not set or is invalid. Defaulting to PR number 1.");
+            1
+        }
+    };
+
+
 
     Ok(())
 }
 mod fib_calculator;
 mod extract_numbers;
 mod extract_pr_content;
+mod post_comment;
+
+
+
+
+
+
+
+
+
+//export GITHUB_REPOSITORY_OWNER="lele-maxwell"
+//export GITHUB_TOKEN=" "
+//export GITHUB_REPOSITORY="micheal-ndoh/project_fibot"
+//export GITHUB_REF="refs/pull/1/merge"
+//export INPUT_ENABLE_FIB="true"
+//export INPUT_MAX_THRESHOLD="100"
