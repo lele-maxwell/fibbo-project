@@ -14,6 +14,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let github_repository = github_repository.split("/").collect::<Vec<&str>>();
     let owner = github_repository[0];
     let repo = github_repository[1];
+    let pr_number: u64 = env::var("PR_NUMBER")
+    .ok()
+    .and_then(|pr_str| pr_str.parse().ok())
+    .unwrap_or_else(|| {
+        println!("⚠️ Warning: PR_NUMBER is not set or invalid. Defaulting to 1.");
+        1
+    });
+
+  
+    
 
     let pr = octocrab::instance().pulls(owner, repo).list_files(1).await?;
     println!("{:?}", pr);
