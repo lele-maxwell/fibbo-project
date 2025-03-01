@@ -1,16 +1,13 @@
 use reqwest::Client;
 use std::env;
-use anyhow:: {Result, Context};
 
-pub async fn post_comment(pr_content: &str) -> Result<(), anyhow::Error> {
+pub async fn post_comment(pr_content: &str) -> Result<(), reqwest::Error> {
     let repo = env::var("GITHUB_REPOSITORY").expect("GITHUB_REPOSITORY not set");
-    let pr_number: u64 = env::var("PR_NUMBER")
-    .map_err(|_| anyhow::anyhow!("PR_NUMBER variable is not set"))?
-    .parse()
-    .map_err(|_| anyhow::anyhow!("Failed to parse PR_NUMBER as a number"))?;
+    let pr_number = env::var("PR_NUMBER")
+        .unwrap_or_else(|_| "1".to_string())
+        .parse::<u32>()
+        .expect("Invalid PR_NUMBER");
 
-      //  .unwrap_or_else(|_| "1".to_string())
-       
     let github_token = env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN not set");
 
     let url = format!(
