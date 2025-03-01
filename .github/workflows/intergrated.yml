@@ -1,24 +1,30 @@
 name: Integration Tests
-on: [push, pull_request]
+on: 
+ push:
+ pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   test-action:
     runs-on: ubuntu-latest
-    steps:
-      - name: include cache
-        uses: action/cache@v4
-        with:
-           path: |
-            ~.cargo/bin/
-            ~.cargo/.git/db/
+    permissions:
+      contents: write
+      pull-requests: write
 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Build and run action
         uses: ./
         with:
           enable_fib: true
           max_threshold: 237
+          pr_number: ${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      
-        
-       
