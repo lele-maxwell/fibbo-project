@@ -8,12 +8,14 @@ permissions:
   pull-requests: write
   contents: read
 
+# permissions: [opened, synchronize]
 jobs:
   test-action:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+#      repository-projects: write
 
     steps:
       - name: Checkout repository
@@ -27,4 +29,4 @@ jobs:
           pr_number: ${{ github.event.pull_request.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            
+          
