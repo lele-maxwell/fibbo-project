@@ -1,6 +1,5 @@
 name: Integration Tests
 on: 
- push:
  pull_request_target:
     types: [opened, synchronize]
 
