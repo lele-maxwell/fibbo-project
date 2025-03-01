@@ -76,8 +76,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             1
         }
     };
-
-
+ println!("The pull request number is: {}", pr_number);
 
     Ok(())
 }
