@@ -52,6 +52,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 println!("\n the fib of {} is : {} \n", num, fib);
                 let pr_content= format!("{:?}", result);
                 post_comment(pr_content.as_str()).await?;
+                result.push(fib);
             } else if max_threshold.parse::<i32>().unwrap() < num {
                 println!("\n number() is greater than (max_threshold){} \n", num);
             }
@@ -76,7 +77,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             1
         }
     };
- println!("The pull request number is: {}", pr_number);
+
+
 
     Ok(())
 }
@@ -92,10 +94,3 @@ mod post_comment;
 
 
 
-
-//export GITHUB_REPOSITORY_OWNER="lele-maxwell"
-//export GITHUB_TOKEN=" "
-//export GITHUB_REPOSITORY="micheal-ndoh/project_fibot"
-//export GITHUB_REF="refs/pull/1/merge"
-//export INPUT_ENABLE_FIB="true"
-//export INPUT_MAX_THRESHOLD="100"
