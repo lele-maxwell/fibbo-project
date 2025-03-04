@@ -1,7 +1,4 @@
-[![Integration Tests](https://github.com/lele-maxwell/fibbo-project/actions/workflows/intergrated.yml/badge.svg)](https://github.com/lele-maxwell/fibbo-project/actions/workflows/intergrated.yml)
-
-[![Integration Tests](https://github.com/lele-maxwell/fibbo-project/actions/workflows/intergrated.yml/badge.svg)](https://github.com/lele-maxwell/fibbo-project/actions/workflows/intergrated.yml)
-
+![Static Badge](https://img.shields.io/badge/lele-maxwell-%20green)
 
 
 
